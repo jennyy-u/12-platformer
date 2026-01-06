@@ -4,7 +4,7 @@ class FHammerBro extends FGameObject {
   int direct = L;
   int speed = 50;
   int frame = 0;
-  int time = 150;
+  int time = 120;
 
 
   FHammerBro(float x, float y) {
@@ -34,7 +34,7 @@ class FHammerBro extends FGameObject {
     if (time <= 0) {
       direct *= -1; //acts as a switch
       setPosition(getX() + direct, getY()); //gets off the wall
-      time = 150;
+      time = 120;
     }
     if (isTouching("player")) {
       if (player.getY() < getY()-gridSize/2) {

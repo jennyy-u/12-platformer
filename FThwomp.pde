@@ -9,35 +9,49 @@ class FThwomp extends FGameObject {
     setStatic(true);
   }
 
+  //thwomp mode framework
+  final int WAITING = 0;
+  final int FALLING = 1;
+  final int RESET = 2;
+  int mode = WAITING;
+
 
   void act() {
     attachImage(thwomp[0]);
-    detect();
-    fall();
-    reset();
+    if (mode == WAITING) waiting();
+    else if (mode == FALLING) falling();
+    else if (mode == RESET) reset();
 
+    //collision
     if (isTouching("player")) {
       player.lives--;
       player.setPosition(150, 0);
     }
   }
-  
-  void detect() {
-    
-    
+
+  void waiting() {
+    if (player.getX() > getX() && player.getX() < getX()+gridSize &&
+      player.getY() > getY() && player.getY() < getY()+6*gridSize) {
+      mode = FALLING;
+    }
   }
 
-  void fall() {
-    /*if (player.x == thwomp.x) {
-      attachImage(thwomp[1]);
-      setStatic(false);
+  void falling() {
+    attachImage(thwomp[1]);
+    setStatic(false);
+
+    if (getY() >= getY()+ 6*gridSize) {
+      mode = RESET;
     }
-    */
   }
-  
+
+
   void reset() {
+    int time = 120;
+    time--;
+    if (time <= 0) {
+      setPosition(getX(), getY()-6*gridSize);
+      mode = WAITING;
+    }
   }
 }
-
-//waiting, falling, reset - modes for thwomp
-//rectangle falling x-gridSize, y, x+gridSize, y+?

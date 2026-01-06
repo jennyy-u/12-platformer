@@ -214,7 +214,7 @@ void loadWorld(PImage img) {
       }
       //thwomp
       else if (c == purple) {
-        FThwomp thmp = new FThwomp(x*gridSize, y*gridSize);
+        FThwomp thmp = new FThwomp(x*gridSize+17, y*gridSize+15);
         enemies.add(thmp);
         world.add(thmp);
       }
