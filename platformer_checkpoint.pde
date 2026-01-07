@@ -7,7 +7,8 @@ import fisica.*;
 FWorld world;
 
 //colors
-color white = color(255, 255, 255);    //background
+color white = color(255, 255, 255);
+color sky = color(144, 213, 255);      //background
 color black = color(0, 0, 0);          //ground
 color grey = color(127, 127, 127);     //walls for enemies
 color pink = color(255, 174, 201);     //goomba
@@ -44,6 +45,12 @@ ArrayList<FGameObject> terrain;
 ArrayList<FGameObject> enemies;
 FPlayer player;
 
+//mode framework
+final int INTRO = 0;
+final int GAME = 1;
+final int PAUSE = 2;
+final int GAMEOVER = 3;
+int mode = INTRO;
 
 void setup() {
   size(600, 600);
@@ -155,11 +162,11 @@ void loadWorld(PImage img) {
         b.attachImage(treeCenter);
         b.setName("treetop");
         world.add(b);
-      } else if (c == green && cLeft == green && cRight == white) {
+      } else if (c == green && cLeft == green && cRight == sky) {
         b.attachImage(treeRight);
         b.setName("treetop");
         world.add(b);
-      } else if (c == green && cRight == green && cLeft == white) {
+      } else if (c == green && cRight == green && cLeft == sky) {
         b.attachImage(treeLeft);
         b.setName("treetop");
         world.add(b);
@@ -235,11 +242,19 @@ void loadPlayer() {
 
 
 void draw() {
-  background(white);
+  background(sky);
+
+  //modes
+  if (mode == INTRO) intro();
+  else if (mode == GAME) game();
+  else if (mode == GAMEOVER) gameover();
+
   drawWorld();
   actWorld();
   player.act();
 }
+
+
 
 void actWorld() {
   player.act();

@@ -1,11 +1,9 @@
 class FHammerBro extends FGameObject {
   
-  
   int direct = L;
   int speed = 50;
   int frame = 0;
   int time = 120;
-
 
   FHammerBro(float x, float y) {
     super();

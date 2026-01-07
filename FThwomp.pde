@@ -1,5 +1,8 @@
 class FThwomp extends FGameObject {
 
+  float startX;
+  float startY;
+  int time = 120;
 
   FThwomp(float x, float y) {
     super();
@@ -7,6 +10,8 @@ class FThwomp extends FGameObject {
     setName("thwomp");
     setRotatable(false);
     setStatic(true);
+    startX = getX();
+    startY = getY();
   }
 
   //thwomp mode framework
@@ -30,8 +35,10 @@ class FThwomp extends FGameObject {
   }
 
   void waiting() {
+    setStatic(true);
     if (player.getX() > getX() && player.getX() < getX()+gridSize &&
       player.getY() > getY() && player.getY() < getY()+6*gridSize) {
+      println(startX, startY);
       mode = FALLING;
     }
   }
@@ -39,19 +46,20 @@ class FThwomp extends FGameObject {
   void falling() {
     attachImage(thwomp[1]);
     setStatic(false);
-
-    if (getY() >= getY()+ 6*gridSize) {
+    println(getY(), startY+ 6*gridSize);
+    if (getY() >= startY+ 6*gridSize) {
       mode = RESET;
     }
   }
 
 
   void reset() {
-    int time = 120;
+    
     time--;
     if (time <= 0) {
-      setPosition(getX(), getY()-6*gridSize);
+      setPosition(startX, startY);
       mode = WAITING;
+      time = 120;
     }
   }
 }
