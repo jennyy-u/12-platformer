@@ -46,8 +46,8 @@ class FThwomp extends FGameObject {
   void falling() {
     attachImage(thwomp[1]);
     setStatic(false);
-    println(getY(), startY+ 6*gridSize);
-    if (getY() >= startY+ 6*gridSize) {
+    println(getY(), startY+ 4*gridSize);
+    if (getY() >= startY+ 4*gridSize) {
       mode = RESET;
     }
   }
