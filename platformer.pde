@@ -11,7 +11,7 @@ color white = color(255, 255, 255);
 color sky = color(144, 213, 255);          //background
 color black = color(0, 0, 0);              //ground
 color grey = color(127, 127, 127);         //walls for enemies
- 
+
 color indigo = color(63, 72, 204);         //hammerbro
 color purple = color(163, 73, 164);        //thwomp
 color pink = color(255, 174, 201);         //goomba
@@ -48,8 +48,9 @@ PImage treeCenter, treeLeft, treeRight, treeInter, treeTrunk;
 PImage ice1, ice2, ice3, ice4;
 PImage lava0, lava1, lava2, lava3, lava4, lava5;
 PImage bridgeCenter, bridgeLeft, bridgeRight;
-PImage portal;
-PImage hammerImg;
+PImage portal, switchblockImg;
+PImage hammerImg, switchImg;
+PImage npcImg;
 int gridSize = 32;
 float zoom = 1.2;
 boolean upkey, downkey, leftkey, rightkey, spacekey, wkey, akey, skey, dkey, qkey, ekey;
@@ -57,6 +58,7 @@ ArrayList<FGameObject> terrain;
 ArrayList<FGameObject> enemies;
 FPlayer player;
 FNpc npc;
+FBox hammer;
 
 //mode framework
 final int INTRO = 0;
@@ -97,6 +99,9 @@ void loadImages() {
   portal = loadImage("yellowStar.png");
   pic = loadImage("hammerbro1.png");
   hammerImg = loadImage("hammer.png");
+  switchImg = loadImage("switch.png");
+  npcImg = loadImage("npc.png");
+  switchblockImg = loadImage("switchblock.png");
   reverseImage(pic).save("hammerbro1.png");
 
   //load actions
@@ -211,7 +216,7 @@ void loadWorld(PImage img) {
         world.add(b);
       }
       //ice
-      if (c == lightblue && cLeft != lightblue) {
+      else if (c == lightblue && cLeft != lightblue) {
         b.attachImage(ice1);
         b.setName("ice");
         world.add(b);
@@ -267,9 +272,22 @@ void loadWorld(PImage img) {
         terrain.add(portal);
         world.add(portal);
       }
+      //switchblock
+      else if (c == darkPink) {
+        FSwitchBlock switchblock = new FSwitchBlock(x*gridSize, y*gridSize);
+        b.setFriction(4);
+        terrain.add(switchblock);
+        world.add(switchblock);
+      }
+      //npc
+      else if (c == darkgreen) {
+        FNpc npc = new FNpc(x*gridSize, y*gridSize);
+        world.add(npc);
+      }
     }
   }
 }
+
 
 
 

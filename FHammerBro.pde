@@ -9,7 +9,7 @@ class FHammerBro extends FGameObject {
   float directH;
   PVector loca;
   PVector velo;
-  FBox hammer;
+  
 
   FHammerBro(float x, float y) {
     super();

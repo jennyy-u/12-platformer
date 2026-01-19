@@ -11,7 +11,9 @@ class FPortal extends FGameObject {
   void act() {
     if (isTouching("player")) {
       loadWorld(map2);
-
+    }
+    if (isTouching("player")) {
+      //mode = GAMEOVER;
     }
   }
 }
