@@ -22,6 +22,7 @@ color darkPink = color(255, 128, 192);     //switch block
 color greyblue = color(112, 146, 190);     //save point block
 
 color redBrown = color(136, 0, 21);        //collapsing bridge
+color brbrown = color(128, 64, 0);         //special bridge
 color orange = color(255, 127, 39);        //spike
 color red = color(237, 28, 36);            //lava
 color lightblue = color(153, 217, 234);    //ice
@@ -29,6 +30,7 @@ color yellow = color(255, 201, 14);        //trampoline
 color green = color(34, 177, 76);          //tree
 color brown = color(185, 122, 87);         //tree trunk
 color darkgreen = color(64, 128, 128);     //NPC
+color neon = color(181, 230, 29);          //potion
 
 
 
@@ -49,7 +51,7 @@ PImage ice1, ice2, ice3, ice4;
 PImage lava0, lava1, lava2, lava3, lava4, lava5;
 PImage bridgeCenter, bridgeLeft, bridgeRight;
 PImage portal, switchblockImg;
-PImage hammerImg, switchImg;
+PImage hammerImg, switchImg, potionImg;
 PImage npcImg;
 int gridSize = 32;
 float zoom = 1.2;
@@ -59,6 +61,8 @@ ArrayList<FGameObject> enemies;
 FPlayer player;
 FNpc npc;
 FBox hammer;
+FBox potion;
+FBridge specialBridge;
 
 //mode framework
 final int INTRO = 0;
@@ -101,6 +105,7 @@ void loadImages() {
   hammerImg = loadImage("hammer.png");
   switchImg = loadImage("switch.png");
   npcImg = loadImage("npc.png");
+  potionImg = loadImage("potion.png");
   switchblockImg = loadImage("switchblock.png");
   reverseImage(pic).save("hammerbro1.png");
 
@@ -241,6 +246,12 @@ void loadWorld(PImage img) {
         terrain.add(br);
         world.add(br);
       }
+      //special bridge
+      else if (c== brbrown) {
+        FBridge specialBridge = new FBridge(x*gridSize, y*gridSize);
+        terrain.add(specialBridge);
+        world.add(specialBridge);
+      }
       //lava
       else if (c == red) {
         FLava lava = new FLava(5, 20, x*gridSize, y*gridSize);
@@ -283,6 +294,11 @@ void loadWorld(PImage img) {
       else if (c == darkgreen) {
         FNpc npc = new FNpc(x*gridSize, y*gridSize);
         world.add(npc);
+      }
+      //potion
+      else if (c == neon) {
+        FPotion potion = new FPotion(x*gridSize, y*gridSize);
+        world.add(potion);
       }
     }
   }

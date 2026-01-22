@@ -10,9 +10,8 @@ class FSwitchBlock extends FGameObject {
 
   void act() {
     if (isTouching("player")) {
-      
-      
-      
+      specialBridge.setStatic(false);
+
     }
   }
 }
